@@ -1,0 +1,319 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.chatListWrapper {
+  width: 320px;
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+  height: 100%;
+}
+
+html[data-theme="dark"] .chatListWrapper {
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.welcomeSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.logoContainer {
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 25px rgba(54, 79, 107, 0.3);
+}
+
+.logoText {
+  color: white;
+  font-size: 42px;
+  font-weight: bold;
+}
+
+.title {
+  font-size: 32px;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.highlight {
+  color: var(--primary-light);
+}
+
+.subtitle {
+  font-size: 18px;
+  color: var(--gray-600);
+  margin-bottom: 32px;
+}
+
+html[data-theme="dark"] .subtitle {
+  color: var(--gray-400);
+}
+
+.newChatButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 24px;
+  background-color: var(--primary-light);
+  color: white;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  
+  &:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  svg {
+    font-size: 18px;
+  }
+}
+
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal);
+  backdrop-filter: blur(2px);
+}
+
+.modal {
+  background-color: var(--bg-color);
+  border-radius: 16px;
+  padding: 24px;
+  width: 90%;
+  max-width: 560px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-large);
+}
+
+.modalTitle {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.personaGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.personaCard {
+  background-color: var(--gray-100);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  &:hover {
+    box-shadow: var(--shadow-medium);
+  }
+}
+
+html[data-theme="dark"] .personaCard {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.personaAvatar {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  overflow: hidden;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.personaName {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.personaDescription {
+  font-size: 14px;
+  color: var(--gray-600);
+  line-height: 1.4;
+}
+
+html[data-theme="dark"] .personaDescription {
+  color: var(--gray-400);
+}
+
+.settingGroup {
+  margin-bottom: 24px;
+  
+  h3 {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    color: var(--primary-light);
+  }
+}
+
+.settingItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  span {
+    font-size: 16px;
+  }
+}
+
+html[data-theme="dark"] .settingItem {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.settingButton {
+  background-color: var(--gray-200);
+  border: none;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 14px;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  
+  &:hover {
+    background-color: var(--gray-300);
+  }
+}
+
+html[data-theme="dark"] .settingButton {
+  background-color: rgba(255, 255, 255, 0.1);
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+}
+
+.dangerButton {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  
+  &:hover {
+    background-color: rgba(239, 68, 68, 0.15);
+  }
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 24px;
+  
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    
+    &:checked + .slider {
+      background-color: var(--primary-light);
+    }
+    
+    &:checked + .slider:before {
+      transform: translateX(22px);
+    }
+  }
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--gray-400);
+  border-radius: 24px;
+  transition: 0.3s;
+  
+  &:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.3s;
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    flex-direction: column;
+  }
+  
+  .chatListWrapper {
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  html[data-theme="dark"] .chatListWrapper {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  .welcomeSection {
+    display: none;
+  }
+  
+  .personaGrid {
+    grid-template-columns: 1fr;
+  }
+} 

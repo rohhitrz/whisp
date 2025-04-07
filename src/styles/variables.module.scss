@@ -1,0 +1,79 @@
+/* Color Variables */
+:export {
+  /* Core colors */
+  primaryLight: #6a8caf;
+  primaryDark: #364f6b;
+  accentLight: #f05d5e;
+  accentDark: #d74e4f;
+  
+  /* Gray Scale */
+  white: #ffffff;
+  gray100: #f8f9fa;
+  gray200: #e9ecef;
+  gray300: #dee2e6;
+  gray400: #ced4da;
+  gray500: #adb5bd;
+  gray600: #6c757d;
+  gray700: #495057;
+  gray800: #343a40;
+  gray900: #212529;
+  black: #000000;
+  
+  /* Theme-specific colors */
+  bgLight: #ffffff;
+  bgDark: #121212;
+  bgSolarized: #002b36;
+  
+  textLight: #212529;
+  textDark: #e9ecef;
+  textSolarized: #93a1a1;
+  
+  bubbleLight: #e9ecef;
+  bubbleDark: #343a40;
+  bubbleSolarized: #073642;
+  
+  bubbleSentLight: #d1e7ff;
+  bubbleSentDark: #1e3a5f;
+  bubbleSentSolarized: #2aa198;
+  
+  /* Border Radii */
+  radiusSmall: 4px;
+  radiusMedium: 8px;
+  radiusLarge: 16px;
+  radiusRounded: 24px;
+  
+  /* Spacing */
+  spaceXxs: 2px;
+  spaceXs: 4px;
+  spaceSm: 8px;
+  spaceMd: 16px;
+  spaceLg: 24px;
+  spaceXl: 32px;
+  spaceXxl: 48px;
+  
+  /* Font Sizes */
+  fontXs: 12px;
+  fontSm: 14px;
+  fontMd: 16px;
+  fontLg: 18px;
+  fontXl: 24px;
+  fontXxl: 32px;
+  
+  /* Transitions */
+  transitionFast: 0.15s ease;
+  transitionMedium: 0.3s ease;
+  transitionSlow: 0.5s ease;
+  
+  /* Box Shadows */
+  shadowSmall: 0 2px 5px rgba(0, 0, 0, 0.08);
+  shadowMedium: 0 4px 10px rgba(0, 0, 0, 0.1);
+  shadowLarge: 0 10px 25px rgba(0, 0, 0, 0.15);
+  
+  /* Z-indices */
+  zBase: 1;
+  zNav: 10;
+  zDropdown: 20;
+  zModal: 30;
+  zToast: 40;
+  zMax: 100;
+} 

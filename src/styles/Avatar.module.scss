@@ -1,0 +1,72 @@
+.avatar {
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  user-select: none;
+  background-color: var(--gray-200);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  will-change: transform;
+}
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.small {
+  width: 32px;
+  height: 32px;
+}
+
+.medium {
+  width: 48px;
+  height: 48px;
+}
+
+.large {
+  width: 64px;
+  height: 64px;
+}
+
+.status {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--bg-color);
+}
+
+.online {
+  background-color: #4caf50;
+}
+
+.offline {
+  background-color: #9e9e9e;
+}
+
+.away {
+  background-color: #ff9800;
+}
+
+.clickable {
+  cursor: pointer;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 0 0 3px rgba(106, 140, 175, 0.3);
+  }
+} 

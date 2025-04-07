@@ -1,0 +1,243 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main {
+  flex: 1;
+  padding: 0 20px 20px;
+  overflow-y: auto;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background: linear-gradient(135deg, rgba(106, 140, 175, 0.03), rgba(54, 79, 107, 0.05));
+    backdrop-filter: blur(80px);
+    pointer-events: none;
+  }
+}
+
+html[data-theme="dark"] .main::before {
+  background: linear-gradient(135deg, rgba(30, 58, 95, 0.1), rgba(20, 30, 48, 0.15));
+}
+
+.header {
+  text-align: center;
+  margin: 24px 0;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--primary-light);
+}
+
+.subtitle {
+  font-size: 16px;
+  color: var(--gray-600);
+  margin-bottom: 24px;
+}
+
+html[data-theme="dark"] .subtitle {
+  color: var(--gray-400);
+}
+
+.searchContainer {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray-500);
+  font-size: 18px;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 12px 12px 12px 44px;
+  border: none;
+  background-color: var(--bg-color);
+  border-radius: 30px;
+  font-size: var(--font-md);
+  transition: box-shadow 0.3s ease;
+  box-shadow: var(--shadow-medium);
+  color: var(--text-color);
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  }
+  
+  &::placeholder {
+    color: var(--gray-500);
+  }
+}
+
+html[data-theme="dark"] .searchInput {
+  background-color: rgba(255, 255, 255, 0.06);
+  
+  &:focus {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.clearButton {
+  display: block;
+  margin: 24px auto;
+  padding: 8px 20px;
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  
+  &:hover {
+    background-color: rgba(239, 68, 68, 0.2);
+  }
+}
+
+.chatsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.chatCard {
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: var(--shadow-medium);
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-large);
+  }
+}
+
+html[data-theme="dark"] .chatCard {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.chatCardAvatar {
+  margin-bottom: 16px;
+}
+
+.chatCardName {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.chatCardDate {
+  font-size: 14px;
+  color: var(--gray-600);
+  margin-bottom: 16px;
+}
+
+html[data-theme="dark"] .chatCardDate {
+  color: var(--gray-400);
+}
+
+.chatCardActions {
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.actionButton {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border: none;
+  
+  svg {
+    font-size: 16px;
+  }
+}
+
+.restoreButton {
+  background-color: rgba(106, 140, 175, 0.1);
+  color: var(--primary-light);
+  
+  &:hover {
+    background-color: rgba(106, 140, 175, 0.2);
+  }
+}
+
+.deleteButton {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  
+  &:hover {
+    background-color: rgba(239, 68, 68, 0.2);
+  }
+}
+
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.emptyIcon {
+  font-size: 48px;
+  margin-bottom: 24px;
+}
+
+.emptyTitle {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.emptyText {
+  font-size: 16px;
+  color: var(--gray-600);
+}
+
+html[data-theme="dark"] .emptyText {
+  color: var(--gray-400);
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding: 0 16px 16px;
+  }
+  
+  .title {
+    font-size: 28px;
+  }
+  
+  .chatsGrid {
+    grid-template-columns: 1fr;
+  }
+} 
