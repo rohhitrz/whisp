@@ -1,0 +1,35 @@
+.typingIndicator {
+  font-size: 0.9rem;
+  color: #666;
+  padding: 8px 12px;
+  margin: 8px 12px;
+  border-radius: 16px;
+  background-color: rgba(0, 0, 0, 0.03);
+  display: inline-flex;
+  align-items: center;
+  max-width: fit-content;
+  
+  [data-theme="dark"] & {
+    color: #aaa;
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+}
+
+.userName {
+  font-weight: 600;
+  margin-right: 4px;
+  color: #444;
+  
+  [data-theme="dark"] & {
+    color: #ddd;
+  }
+}
+
+.dots {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-left: 2px;
+} 

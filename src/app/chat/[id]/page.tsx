@@ -2,14 +2,18 @@
 
 import React, { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
+import { AnimatePresence } from 'framer-motion';
 import Header from '@/components/Header';
 import ChatArea from '@/components/ChatArea';
 import TypingArea from '@/components/TypingArea';
-import { Message } from '@/types';
+import TypingIndicator from '@/components/TypingIndicator';
+import MemoryDrawer from '@/components/MemoryDrawer';
+import { Message, User } from '@/types';
 import { messagesMap } from '@/data/messages';
 import { users, currentUser } from '@/data/users';
 import { personas } from '@/data/personas';
 import { useApp } from '@/components/AppProvider';
+import { getAutoReply } from '@/utils/autoReply';
 import styles from '@/styles/ChatPage.module.scss';
 
 interface ChatPageProps {
@@ -22,6 +26,8 @@ export default function ChatPage({ params }: ChatPageProps) {
   const { id: chatId } = params;
   const [messages, setMessages] = useState<Message[]>([]);
   const [user, setUser] = useState(users[0]);
+  const [isTyping, setIsTyping] = useState(false);
+  const [isMemoryOpen, setIsMemoryOpen] = useState(false);
   const { settings } = useApp();
 
   // Load initial messages from mock data or localStorage
@@ -58,36 +64,7 @@ export default function ChatPage({ params }: ChatPageProps) {
     }
   }, [messages, chatId]);
 
-  // Simulate typing and response for AI
-  const simulateResponse = (message: Message) => {
-    // Find the persona associated with the user
-    const userPersona = personas.find(p => p.name === user.persona);
-    
-    if (!userPersona || !settings.aiMode) return;
-    
-    // Set typing indicator
-    setTimeout(() => {
-      // Choose a random reply from the persona's replies
-      const replyIndex = Math.floor(Math.random() * userPersona.replies.length);
-      const replyContent = userPersona.replies[replyIndex];
-      
-      // Add the AI response
-      const aiResponse: Message = {
-        id: nanoid(),
-        from: user.id,
-        to: 'me',
-        type: 'text',
-        content: replyContent,
-        timestamp: new Date().toISOString(),
-        delivered: true,
-        read: true
-      };
-      
-      setMessages(prev => [...prev, aiResponse]);
-    }, 1500 + Math.random() * 2000); // Random delay between 1.5 and 3.5 seconds
-  };
-
-  // Handle sending a new message
+  // Whisp AI Auto-Reply - Handle sending a new message and trigger auto-reply
   const handleSendMessage = (content: string, type: 'text' | 'image' | 'audio' | 'file') => {
     const newMessage: Message = {
       id: nanoid(),
@@ -103,8 +80,40 @@ export default function ChatPage({ params }: ChatPageProps) {
     
     // Simulate AI response if AI mode is enabled
     if (settings.aiMode) {
-      simulateResponse(newMessage);
+      // Find the persona associated with the user
+      const userPersona = personas.find(p => p.name === user.persona);
+      
+      // Show typing indicator and set user as online
+      setIsTyping(true);
+      setUser(prev => ({
+        ...prev,
+        status: 'online',
+        lastSeen: new Date().toISOString()
+      }));
+      
+      // Generate reply after delay
+      getAutoReply(userPersona || null, 'me', (replyMessage) => {
+        // First hide the typing indicator
+        setIsTyping(false);
+        
+        // Mark all previously sent messages as read
+        setMessages(prev => 
+          prev.map(msg => 
+            msg.from === 'me' ? { ...msg, delivered: true, read: true } : msg
+          )
+        );
+        
+        // Then add the message
+        setTimeout(() => {
+          setMessages(prev => [...prev, replyMessage]);
+        }, 100);
+      });
     }
+  };
+
+  // Toggle memory drawer
+  const toggleMemory = () => {
+    setIsMemoryOpen(!isMemoryOpen);
   };
 
   return (
@@ -117,6 +126,7 @@ export default function ChatPage({ params }: ChatPageProps) {
       <Header 
         user={user}
         showBackButton
+        onMemoryClick={toggleMemory}
       />
       
       <main className={styles.main}>
@@ -125,11 +135,23 @@ export default function ChatPage({ params }: ChatPageProps) {
           currentUserId="me"
         />
         
+        <AnimatePresence>
+          {isTyping && (
+            <TypingIndicator isTyping={isTyping} userName={user.name} />
+          )}
+        </AnimatePresence>
+        
         <TypingArea 
           onSendMessage={handleSendMessage}
           placeholder={`Message ${user.name}...`}
         />
       </main>
+      
+      <MemoryDrawer 
+        isOpen={isMemoryOpen}
+        onClose={() => setIsMemoryOpen(false)}
+        messages={messages}
+      />
     </div>
   );
 } 

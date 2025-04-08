@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FiMenu, FiSettings, FiArchive } from 'react-icons/fi';
+import { FiMenu, FiSettings, FiArchive, FiActivity } from 'react-icons/fi';
 import Avatar from './Avatar';
 import { User } from '@/types';
 import { formatTimeAgo } from '@/utils/dateUtils';
@@ -13,6 +13,7 @@ interface HeaderProps {
   user?: User;
   onMenuClick?: () => void;
   onSettingsClick?: () => void;
+  onMemoryClick?: () => void;
   showBackButton?: boolean;
   showVaultButton?: boolean;
 }
@@ -21,6 +22,7 @@ const Header: React.FC<HeaderProps> = ({
   user,
   onMenuClick,
   onSettingsClick,
+  onMemoryClick,
   showBackButton = false,
   showVaultButton = false,
 }) => {
@@ -118,6 +120,12 @@ const Header: React.FC<HeaderProps> = ({
           <Link href="/vault" className={styles.iconButton}>
             <FiArchive />
           </Link>
+        )}
+        
+        {onMemoryClick && (
+          <button onClick={onMemoryClick} className={styles.iconButton}>
+            <FiActivity />
+          </button>
         )}
         
         <button onClick={onSettingsClick} className={styles.iconButton}>

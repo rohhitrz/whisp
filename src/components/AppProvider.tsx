@@ -60,7 +60,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const toggleTheme = () => {
-    const themes: Theme[] = ['light', 'dark', 'solarized'];
+    const themes: Theme[] = ['light', 'dark'];
     const currentIndex = themes.indexOf(settings.theme);
     const nextIndex = (currentIndex + 1) % themes.length;
     updateSettings({ theme: themes[nextIndex] });
