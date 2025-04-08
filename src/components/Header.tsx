@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { FiMenu, FiSettings, FiArchive, FiActivity } from 'react-icons/fi';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FiMenu, FiSettings, FiArchive, FiActivity, FiMoreVertical, FiTrash2 } from 'react-icons/fi';
 import Avatar from './Avatar';
 import { User } from '@/types';
 import { formatTimeAgo } from '@/utils/dateUtils';
@@ -14,6 +14,7 @@ interface HeaderProps {
   onMenuClick?: () => void;
   onSettingsClick?: () => void;
   onMemoryClick?: () => void;
+  onClearChat?: () => void;
   showBackButton?: boolean;
   showVaultButton?: boolean;
 }
@@ -23,11 +24,13 @@ const Header: React.FC<HeaderProps> = ({
   onMenuClick,
   onSettingsClick,
   onMemoryClick,
+  onClearChat,
   showBackButton = false,
   showVaultButton = false,
 }) => {
   const [lastSeen, setLastSeen] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
   // Simulate typing indicator and last seen updates
   useEffect(() => {
@@ -53,6 +56,17 @@ const Header: React.FC<HeaderProps> = ({
   }, [user]);
 
   const statusText = isTyping ? 'typing...' : lastSeen;
+
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+  };
+
+  const handleClearChat = () => {
+    setShowMenu(false);
+    if (onClearChat) {
+      onClearChat();
+    }
+  };
 
   return (
     <header className={styles.header}>
@@ -126,6 +140,33 @@ const Header: React.FC<HeaderProps> = ({
           <button onClick={onMemoryClick} className={styles.iconButton}>
             <FiActivity />
           </button>
+        )}
+
+        {onClearChat && (
+          <div className={styles.menuContainer}>
+            <button onClick={toggleMenu} className={styles.iconButton}>
+              <FiMoreVertical />
+            </button>
+            
+            <AnimatePresence>
+              {showMenu && (
+                <motion.div 
+                  className={styles.menuDropdown}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                >
+                  <button 
+                    className={styles.menuItem}
+                    onClick={handleClearChat}
+                  >
+                    <FiTrash2 />
+                    <span>Clear Chat History</span>
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         )}
         
         <button onClick={onSettingsClick} className={styles.iconButton}>

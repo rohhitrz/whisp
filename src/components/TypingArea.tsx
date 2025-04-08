@@ -18,6 +18,7 @@ const TypingArea: React.FC<TypingAreaProps> = ({
   const [isRecording, setIsRecording] = useState(false);
   const [recordingTime, setRecordingTime] = useState(0);
   const [showEmoji, setShowEmoji] = useState(false);
+  const [isSending, setIsSending] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const recordingTimerRef = useRef<NodeJS.Timeout | null>(null);
@@ -25,12 +26,18 @@ const TypingArea: React.FC<TypingAreaProps> = ({
   // Handle emoji selection
   const emojis = ['😊', '👍', '❤️', '😂', '🎉', '🔥', '👀', '✨', '🙏', '😎', '🤔', '👋'];
 
-  // Handle send message
+  // Handle send message with haptic feedback
   const handleSendMessage = () => {
     if (message.trim()) {
+      setIsSending(true);
       onSendMessage(message, 'text');
       setMessage('');
-      inputRef.current?.focus();
+      
+      // Reset sending state after animation completes
+      setTimeout(() => {
+        setIsSending(false);
+        inputRef.current?.focus();
+      }, 200);
     }
   };
 
@@ -167,12 +174,15 @@ const TypingArea: React.FC<TypingAreaProps> = ({
         )}
 
         {message.trim() ? (
-          <button 
+          <motion.button 
             className={`${styles.iconButton} ${styles.sendButton}`}
             onClick={handleSendMessage}
+            whileTap={{ scale: 0.8 }}
+            animate={isSending ? { scale: [1, 0.8, 1] } : {}}
+            transition={{ duration: 0.2 }}
           >
             <FiSend />
-          </button>
+          </motion.button>
         ) : (
           <button 
             className={`${styles.iconButton} ${styles.micButton}`}

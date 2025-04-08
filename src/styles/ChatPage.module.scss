@@ -10,40 +10,75 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.5;
-  
-  &[data-background="texture"] {
-    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.1' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
-  }
+  right: 0;
+  bottom: 0;
+  z-index: 0;
   
   &[data-background="gradient"] {
-    background: linear-gradient(135deg, rgba(106, 140, 175, 0.1), rgba(54, 79, 107, 0.1));
+    background: linear-gradient(135deg, rgba(247, 249, 255, 0.6), rgba(229, 235, 255, 0.6));
+    
+    [data-theme="dark"] & {
+      background: linear-gradient(135deg, rgba(27, 32, 52, 0.6), rgba(13, 17, 38, 0.6));
+    }
+  }
+  
+  &[data-background="texture"] {
+    background-image: url('/backgrounds/texture.png');
+    background-repeat: repeat;
+    opacity: 0.1;
+    
+    [data-theme="dark"] & {
+      opacity: 0.05;
+    }
   }
   
   &[data-background="blur"] {
-    background-image: url("https://images.unsplash.com/photo-1557682250-4b3f7299f41f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&q=80");
-    background-size: cover;
-    background-position: center;
-    filter: blur(20px);
-    opacity: 0.15;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    
+    [data-theme="dark"] & {
+      background: rgba(20, 20, 35, 0.8);
+    }
+  }
+  
+  &[data-background="starscape"] {
+    background-color: #f7f9ff;
+    background-image: radial-gradient(circle at top right, rgba(121, 68, 154, 0.1), transparent),
+                     radial-gradient(circle at 20% 80%, rgba(41, 196, 255, 0.1), transparent);
+    position: relative;
+    overflow: hidden;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      top: -50%;
+      left: -50%;
+      background-image: url('/backgrounds/stars.png');
+      background-size: 550px;
+      opacity: 0.3;
+      animation: rotate 240s linear infinite;
+    }
+    
+    [data-theme="dark"] & {
+      background-color: #0a0a1a;
+      background-image: radial-gradient(circle at top right, rgba(121, 68, 154, 0.2), transparent),
+                       radial-gradient(circle at 20% 80%, rgba(41, 196, 255, 0.2), transparent);
+      
+      &::before {
+        opacity: 0.5;
+      }
+    }
   }
 }
 
-html[data-theme="dark"] .background {
-  &[data-background="texture"] {
-    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.05' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
   }
-  
-  &[data-background="gradient"] {
-    background: linear-gradient(135deg, rgba(30, 58, 95, 0.2), rgba(20, 30, 48, 0.2));
-  }
-  
-  &[data-background="blur"] {
-    opacity: 0.1;
+  to {
+    transform: rotate(360deg);
   }
 }
 

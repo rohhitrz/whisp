@@ -8,6 +8,7 @@ import ChatArea from '@/components/ChatArea';
 import TypingArea from '@/components/TypingArea';
 import TypingIndicator from '@/components/TypingIndicator';
 import MemoryDrawer from '@/components/MemoryDrawer';
+import ConfirmationModal from '@/components/ConfirmationModal';
 import { Message, User } from '@/types';
 import { messagesMap } from '@/data/messages';
 import { users, currentUser } from '@/data/users';
@@ -28,6 +29,7 @@ export default function ChatPage({ params }: ChatPageProps) {
   const [user, setUser] = useState(users[0]);
   const [isTyping, setIsTyping] = useState(false);
   const [isMemoryOpen, setIsMemoryOpen] = useState(false);
+  const [showClearModal, setShowClearModal] = useState(false);
   const { settings } = useApp();
 
   // Load initial messages from mock data or localStorage
@@ -116,6 +118,17 @@ export default function ChatPage({ params }: ChatPageProps) {
     setIsMemoryOpen(!isMemoryOpen);
   };
 
+  // Show clear chat confirmation modal
+  const openClearChatModal = () => {
+    setShowClearModal(true);
+  };
+
+  // Clear chat history
+  const clearChatHistory = () => {
+    localStorage.removeItem(`whisp-chat-${chatId}`);
+    setMessages([]);
+  };
+
   return (
     <div className={styles.container}>
       <div 
@@ -127,6 +140,7 @@ export default function ChatPage({ params }: ChatPageProps) {
         user={user}
         showBackButton
         onMemoryClick={toggleMemory}
+        onClearChat={openClearChatModal}
       />
       
       <main className={styles.main}>
@@ -151,6 +165,17 @@ export default function ChatPage({ params }: ChatPageProps) {
         isOpen={isMemoryOpen}
         onClose={() => setIsMemoryOpen(false)}
         messages={messages}
+      />
+
+      <ConfirmationModal
+        isOpen={showClearModal}
+        onClose={() => setShowClearModal(false)}
+        onConfirm={clearChatHistory}
+        title="Clear Chat History"
+        message="Are you sure you want to clear all messages in this chat? This action cannot be undone."
+        confirmText="Clear History"
+        cancelText="Cancel"
+        isDestructive={true}
       />
     </div>
   );

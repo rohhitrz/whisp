@@ -23,23 +23,28 @@ const BackgroundSelector: React.FC<BackgroundSelectorProps> = ({
   const backgroundOptions: BackgroundOption[] = [
     {
       id: 'none',
-      name: 'None',
+      name: 'Default (Solid)',
       preview: '/backgrounds/none.png'
     },
     {
       id: 'gradient',
-      name: 'Gradient',
+      name: 'Subtle Gradient',
       preview: '/backgrounds/gradient.png'
     },
     {
-      id: 'blur',
-      name: 'Anime Panel',
-      preview: '/backgrounds/anime.png'
+      id: 'starscape',
+      name: 'Light Starscape',
+      preview: '/backgrounds/stars.png'
     },
     {
       id: 'texture',
-      name: 'Soft Grid',
-      preview: '/backgrounds/grid.png'
+      name: 'Paper Texture',
+      preview: '/backgrounds/texture.png'
+    },
+    {
+      id: 'blur',
+      name: 'Soft Blur',
+      preview: '/backgrounds/blur.png'
     }
   ];
 

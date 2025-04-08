@@ -1,12 +1,16 @@
+import React from 'react';
+import { Inter, Outfit, DM_Sans } from 'next/font/google';
 import '@/styles/globals.scss';
-import type { Metadata } from 'next';
 import { AppProvider } from '@/components/AppProvider';
 import ClientWrapper from '../components/ClientWrapper';
+import { metadata } from './metadata';
 
-export const metadata: Metadata = {
-  title: 'Whisp X | Minimalist Messaging',
-  description: 'A beautifully minimal messaging experience',
-};
+// Font imports
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
+const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm-sans' });
+
+export { metadata };
 
 export default function RootLayout({
   children,
@@ -15,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className={`${inter.variable} ${outfit.variable} ${dmSans.variable}`}>
         <ClientWrapper>
           <AppProvider>
             {children}

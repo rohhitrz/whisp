@@ -41,7 +41,7 @@ export interface Chat {
 }
 
 // Theme type definition
-export type Theme = 'light' | 'dark' | 'solarized';
+export type Theme = 'light' | 'dark';
 
 // Font type definition
 export type Font = 'Outfit' | 'Inter' | 'DM Sans';
@@ -50,7 +50,7 @@ export type Font = 'Outfit' | 'Inter' | 'DM Sans';
 export type BubbleStyle = 'rounded' | 'flat';
 
 // Background type definition
-export type Background = 'texture' | 'gradient' | 'blur' | 'none';
+export type Background = 'texture' | 'gradient' | 'blur' | 'starscape' | 'none';
 
 // User settings type definition
 export interface UserSettings {

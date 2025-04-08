@@ -165,4 +165,75 @@
   .bubbleContainer {
     max-width: 90%;
   }
+}
+
+.reactionOptions {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  display: flex;
+  background-color: white;
+  border-radius: 20px;
+  padding: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  
+  .sent & {
+    right: 10px;
+  }
+  
+  .received & {
+    left: 10px;
+    right: auto;
+  }
+  
+  [data-theme="dark"] & {
+    background-color: #2a2a3a;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.reactionButton {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: transform 0.2s;
+  margin: 0 2px;
+  
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+.emojiReaction {
+  position: absolute;
+  top: -20px;
+  right: 8px;
+  font-size: 16px;
+  background-color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  
+  .received & {
+    right: auto;
+    left: 8px;
+  }
+  
+  [data-theme="dark"] & {
+    background-color: #2a2a3a;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
 } 

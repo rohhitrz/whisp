@@ -81,7 +81,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const toggleBackground = () => {
-    const backgrounds: Background[] = ['none', 'texture', 'gradient', 'blur'];
+    const backgrounds: Background[] = ['none', 'texture', 'gradient', 'blur', 'starscape'];
     const currentIndex = backgrounds.indexOf(settings.background);
     const nextIndex = (currentIndex + 1) % backgrounds.length;
     updateSettings({ background: backgrounds[nextIndex] });

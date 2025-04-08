@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FaHeart, FaThumbtack, FaCheck, FaCheckDouble } from 'react-icons/fa';
 import { Message } from '@/types';
 import { formatTime } from '@/utils/dateUtils';
@@ -18,6 +18,8 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, isSent }) => {
   const [liked, setLiked] = useState(false);
   const [pinned, setPinned] = useState(false);
   const [formattedTime, setFormattedTime] = useState<string>('');
+  const [isHovered, setIsHovered] = useState(false);
+  const [reaction, setReaction] = useState<string | null>(null);
   const { settings } = useApp();
 
   useEffect(() => {
@@ -34,6 +36,11 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, isSent }) => {
     } else {
       setDragOffset(0);
     }
+  };
+
+  const handleReaction = (emoji: string) => {
+    setReaction(emoji);
+    setIsHovered(false);
   };
 
   const renderMessageContent = () => {
@@ -118,9 +125,16 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, isSent }) => {
       dragConstraints={{ left: -50, right: 50 }}
       onDragEnd={handleDragEnd}
       style={{ x: dragOffset }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
     >
       {liked && <FaHeart className={`${styles.reactionIcon} ${styles.likeIcon}`} />}
       {pinned && <FaThumbtack className={`${styles.reactionIcon} ${styles.pinIcon}`} />}
+      {reaction && (
+        <div className={styles.emojiReaction}>
+          {reaction}
+        </div>
+      )}
       
       <div className={bubbleClass}>
         {renderMessageContent()}
@@ -129,6 +143,36 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, isSent }) => {
           {getDeliveryStatus()}
         </div>
       </div>
+      
+      <AnimatePresence>
+        {isHovered && !reaction && (
+          <motion.div
+            className={styles.reactionOptions}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+          >
+            <button 
+              className={styles.reactionButton}
+              onClick={() => handleReaction('❤️')}
+            >
+              ❤️
+            </button>
+            <button 
+              className={styles.reactionButton}
+              onClick={() => handleReaction('👍')}
+            >
+              👍
+            </button>
+            <button 
+              className={styles.reactionButton}
+              onClick={() => handleReaction('😂')}
+            >
+              😂
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };
